@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <py-repl>
+      name = input('Whats your name?')
+nameLineStart = 'Hey '
+nameLineEnd = ' how are you doing?'
+
+def nameLine():
+    if len(name) == 2:
+        return ('****' + nameLineStart + name + nameLineEnd + '****')
+    if len(name) == 3:
+        return ('****' + nameLineStart + name + nameLineEnd + '***')
+    elif len(name) == 4:
+        return ('***' + nameLineStart + name + nameLineEnd + '***')
+    elif len(name) == 5:
+        return ('***' + nameLineStart + name + nameLineEnd + '**')
+    elif len(name) == 6:
+        return ('**' + nameLineStart + name + nameLineEnd + '**')
+    elif len(name) == 7:
+        return ('**' + nameLineStart + name + nameLineEnd + '*')
+    elif len(name) == 8:
+        return ('*' + nameLineStart + name + nameLineEnd + '*')
+    else:
+        return ('*********************************')
+
+def drawPicture():
+    for lines in range(3):
+        print('*********************************')
+    print('********XX*************XX********')
+    for lines in range(3):
+        print('****************|****************')
+    print('***************___***************')
+    print('*****__********************__****')
+    print('*******--__***********__--*******')
+    print('***********--______--************')
+    print('*********************************')
+    print(nameLine())
+    print('*********************************')
+
+print(name)
+drawPicture()
+    </py-repl>
+</body>
+</html>
