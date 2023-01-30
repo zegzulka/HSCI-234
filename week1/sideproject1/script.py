@@ -1,8 +1,4 @@
-
-from datetime import datetime as dt
-
 from utils import add_class, remove_class
-
 
 wordsInput = Element("input")
 
