@@ -1,6 +1,10 @@
+from datetime import datetime as date
+
 from utils import add_class, remove_class
 
 wordsInput = Element("input")
+logTemplate = Element("log-template").select(".log", from_content=True)
+logList = Element("log-list")
 
 encryptedLetters = {
             "a": "😄",
@@ -32,7 +36,34 @@ encryptedLetters = {
             "space": "😵"
             }
 
+logs = []
+
 def showResult(function):
+    currentTime = date.now()
+    hourMinute = currentTime.strftime("%H:%M:%S")
+    global wordsInput
+
+    if not function:
+        return None
+    
+    logID = f"task-{len(logs)}"
+    outcome = {
+        "id": logID,
+        "content": function,
+        "time": hourMinute,
+        "input": wordsInput
+    }
+
+    logs.append(outcome)    
+
+    logHTML = logTemplate.clone(logID)
+    logOutcomeHTML = logHTML.select(".outcome")
+    logTimeHTML = logHTML.select(".time")
+    logInputHTML = logHTML.select(".input")
+    logOutcomeHTML.element.innerText = outcome["content"]
+    logTimeHTML.element.innerText = outcome["time"]
+    logList.element.insertBefore(logHTML.element, logList.element.firstChild)
+
     print(function)
 
 def getEncryptedMessage():

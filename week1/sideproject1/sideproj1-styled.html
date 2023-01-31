@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind.js"></script>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="m-12 bg-[#000000] font-bold">
+    <section class="python-config">
+        <py-config>
+        terminal = false
+        [[fetch]]
+        files = ["./utils.py"]
+        </py-config>
+        <py-script src="./script.py">
+        </py-script>
+    </section>
+
+    <main class="flex flex-col w-full gap-[24px]">
+        <input id="input" class="w-full p-[24px] bg-[#000000] border-2 border-[#333333] rounded-[16px] text-[#ffffff] p-[24px] flex focus:border-[#818181] focus:outline-none" type="text" autofocus>        <div class="flex gap-[24px] w-full">
+            <button class="w-full h-[64px] bg-[#FFFF3C] border-2 border-[#A0A01F] rounded-[16px] tracking-wide uppercase leading-[19px]" id="encryptButton" py-click="getEncryptedMessage()" type="submit">Encrypt</button>
+            <button class="w-full h-[64px] bg-[#CFCFCF] border-2 border-[#8F8F8F] rounded-[16px] tracking-wide uppercase leading-[19px]" id="decryptButton" py-click="getDecryptedMessage()" type="submit">Decrypt</button>
+        </div>
+
+        <div id="log-list" class="flex flex-col gap-[24px]">
+        </div>
+    </main>
+
+    <template id="log-template">
+        <section class="log w-full flex bg-[#1E1E1E] p-[24px] border-2 border-[#333333] rounded-[16px]">
+                <div class="flex flex-col gap-[20px] w-full">
+                    <p class="input text-[#D0D0D0]">hey how are you doing</p>
+                    <p class="outcome text-[#ffffff]">😛😫🤠😵😛😎😴😵😄🤡😫😵🤠😎😹😵🙁😎😡🥳🤓</p>
+                </div>
+                <div>
+                    <p class="time text-[#808080]">06:27:22</p>
+                </div>
+            </section>
+    </template>
+</body>
+</html>

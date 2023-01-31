@@ -22,14 +22,24 @@
     </section>
 
     <main>
-        <h1>Secret Encrypter</h1>
         <p>Enter the text you want to encrypt or decrypt.</p>
         <input id="input" class="py-input" type="text">
         <div>
             <button id="encryptButton" class="py-button" py-click="getEncryptedMessage()" type="submit">Encrypt</button>
             <button id="decryptButton" class="py-button" py-click="getDecryptedMessage()" type="submit">Decrypt</button>
         </div>
+
+        <div id="log-list" class="">
+        </div>
     </main>
+
+    <template id="log-template">
+        <section class="log py-li-element">
+            <label for="flex items-center p-2">
+                <p class="m-0 inline"></p>
+            </label>
+        </section>
+    </template>
 
     <section>
         <a href="https://github.com/zegzulka/HSCI/blob/135dbc0fb001b5181fffd584049f2d0ea0ef4d2d/week1/sideproject1/script.py" target="_blank">Source Code</a>
