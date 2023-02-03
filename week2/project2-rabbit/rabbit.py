@@ -22,6 +22,7 @@ def draw():
     p5.background(35,92,99)  
     rectangleGrid(0, 0, 20, 20, 97, 167, 176)
     p5.strokeWeight(2)
+    p5.stroke(63,45,32)
     p5.fill(107,76,54)
     p5.ellipse(115, 190, 163)
     p5.fill(182,129,83)
