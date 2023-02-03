@@ -13,14 +13,14 @@ def spawnRectangle(x, y, width, height, r, g, b):
     p5.fill(r, g, b)
     p5.quad(x1, y1, x2, y1, x2, y2, x1 ,y2)
 
-def rectangleRandomPosition(x, y, width, height, r, g, b):
+def rectangleGrid(x, y, width, height, r, g, b):
     for j in range(0,20):
         for i in range(0, 30):
             spawnRectangle(width*-j + x + width*2*i, y + height*j, width, height, r, g, b)
     
 def draw():
     p5.background(35,92,99)  
-    rectangleRandomPosition(0, 0, 20, 20, 97, 167, 176)
+    rectangleGrid(0, 0, 20, 20, 97, 167, 176)
     p5.strokeWeight(2)
     p5.fill(107,76,54)
     p5.ellipse(115, 190, 163)
