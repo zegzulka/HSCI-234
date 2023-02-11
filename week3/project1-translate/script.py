@@ -8,6 +8,7 @@ savedPosition = []
 scaleSave = 1
 
 def drawChracter(x, y, scale):
+    global scaleSave
     p5.push()
     p5.translate(x, y)
     p5.noStroke()
@@ -48,6 +49,7 @@ def drawChracter(x, y, scale):
     p5.pop()
     
 def draw():
+    global scaleSave
     savedPosition.append([p5.mouseX-10*scaleSave, p5.mouseY-10*scaleSave, scaleSave])
     p5.background(10,30,86)
 
