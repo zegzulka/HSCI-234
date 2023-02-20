@@ -4,9 +4,6 @@ p5 = js.window
 def setup():
     p5.createCanvas(300, 300)    # 300 x 300 pixel canvas
 
-savedPosition = []
-scaleSave = 1
-
 def drawHead(x, y, scale):
     p5.push()
     p5.translate(x, y)
