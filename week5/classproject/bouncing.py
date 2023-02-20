@@ -20,3 +20,12 @@ def draw():
     if (y > p5.height + radius) or (y < -radius):
         ySpeed = -ySpeed
     p5.ellipse(x, y, radius*2, radius*2)
+    d = dist(x, y, p5.mouseX, p5.mouseY)
+    p5.text("dist: "+ str(d), 10,50)
+
+def dist(x1, x2, y1, y2):
+    dx = x2-x1
+    dy = y2-y1
+    distance = p5.sqrt(dx*dx + dy*dy)
+    return distance
+
