@@ -17,9 +17,10 @@ def draw():
     global alpha
     global random_size1, random_size2, random_size3, random_size4, random_size5
     p5.background(255)           # white background
+    p5.strokeWeight(1)
     p5.text(str(p5.mouseX) + ", " + str(p5.mouseY), 10, 15)
-    p5.strokeWeight(2)  # set stroke thickness
     p5.text(alpha, 10, 30)
+    p5.strokeWeight(2)  # set stroke thickness
 
     #rectangle changing transparency
     p5.stroke(127, 0, 255, alpha)
@@ -47,8 +48,8 @@ def draw():
     else:
         alpha = 0
 
-    p5.stroke(0)
     random_square_loop(150,150, random_size5)
+    p5.stroke(0)
 
 
 def random_square(size):
@@ -85,3 +86,12 @@ def random_square_loop (x,y,size):
         p5.stroke(p5.random(0,255), p5.random(0,255), p5.random(0,255))
         random_square_at(x-size*i/2,y-size*i/2,size*i)
         
+
+
+
+
+
+
+
+
+
