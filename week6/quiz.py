@@ -15,7 +15,7 @@ def setup():
 
 def draw():
     global alpha
-    global random_size1, random_size2, random_size3, random_size4
+    global random_size1, random_size2, random_size3, random_size4, random_size5
     p5.background(255)           # white background
     p5.text(str(p5.mouseX) + ", " + str(p5.mouseY), 10, 15)
     p5.strokeWeight(2)  # set stroke thickness
@@ -84,3 +84,4 @@ def random_square_loop (x,y,size):
     for i in range (4):
         p5.stroke(p5.random(0,255), p5.random(0,255), p5.random(0,255))
         random_square_at(x-size*i/2,y-size*i/2,size*i)
+        
