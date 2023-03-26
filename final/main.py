@@ -72,7 +72,7 @@ class Gameboy():
     def draw(self):
         #Main Body Color
         if (self.colorChoice == 1):
-            p5.background(35,185,0)
+            p5.background(0,127,172)
             p5.image(self.color, 0, 0) 
         if (self.colorChoice == 2):
             p5.background(35,185,0)
