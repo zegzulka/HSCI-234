@@ -232,6 +232,7 @@ class Minecraft():
         self.video.size(93, 85)
         self.video.hide()
         self.video.loop()
+        self.video.volume(0)
         
     def draw(self):
         p5.fill(99, 99, 5)
@@ -328,6 +329,9 @@ class Gameboy():
         self.displayBorder = p5.loadImage('displayBorder.png');  
         self.mainBorder = p5.loadImage('mainBorder.png');
         self.font1 = p5.loadFont('PressStart2P.otf')
+        self.clickSound = p5.loadSound('click.wav')
+        self.startupSound = p5.loadSound('startup.wav')
+        self.startupSound.play()
     def draw(self):
         #Use font1 for all texts
         p5.textFont(self.font1);
