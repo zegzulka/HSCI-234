@@ -6,6 +6,7 @@ class GameManager():
     state = 'start'
     buttonPressed = False
     lastButtonPressTime = 0
+    played = False
 
     def draw(self):
         if (self.state == 'start'):
@@ -16,6 +17,8 @@ class GameManager():
             settings.draw()
         if (self.state == 'minecraft'):
             minecraft.draw()
+        if (self.state == 'tetris'):
+            tetris.draw()
 
     # Scene Actions
     def actionTriggered(self, button):
@@ -26,6 +29,7 @@ class GameManager():
         if (self.state == 'start'):
             if elapsed >= 200:
                 if (button == 'a'):
+                    gameboy.clickSound.play()
                     self.state = 'menu'
                     self.lastButtonPressTime = currentTime
                     elapsed = 0
@@ -34,6 +38,7 @@ class GameManager():
         if (self.state == 'menu'):
             if elapsed >= 280:
                 if button == 'up':
+                    gameboy.clickSound.play()
                     if menu.triangleY == 36:
                         menu.triangleY = 70
                         menu.triangleX = 15
@@ -46,6 +51,7 @@ class GameManager():
                         menu.triangleX = 3
 
                 if button == 'down':
+                    gameboy.clickSound.play()
                     if menu.triangleY == 36:
                         menu.triangleY = 46
                     elif menu.triangleY == 46:
@@ -59,10 +65,15 @@ class GameManager():
 
                 if button == 'b':
                     self.state = 'start'
+                    gameboy.clickSound.play()
 
                 if button == 'a':
+                    gameboy.clickSound.play()
                     if menu.triangleY == 36:
-                        None
+                        self.savedChoice = gameboy.colorChoice
+                        self.state = 'tetris'
+                        gameboy.colorChoice = 4
+                        elapsed = 0
                     elif menu.triangleY == 46:
                         self.savedChoice = gameboy.colorChoice
                         self.state = 'minecraft'
@@ -80,6 +91,18 @@ class GameManager():
         if (self.state == 'minecraft'):
             if elapsed >= 200:
                 if (button == 'b'):
+                    gameboy.clickSound.play()
+                    self.state = 'menu'
+                    gameboy.colorChoice = self.savedChoice
+                if (button == 'a'):
+                    None
+                self.lastButtonPressTime = currentTime
+
+        #Tetris Scene
+        if (self.state == 'tetris'):
+            if elapsed >= 200:
+                if (button == 'b'):
+                    gameboy.clickSound.play()
                     self.state = 'menu'
                     gameboy.colorChoice = self.savedChoice
                 if (button == 'a'):
@@ -91,6 +114,7 @@ class GameManager():
         if (self.state == 'settings'):
             if elapsed >= 200:
                 if button == 'up':
+                    gameboy.clickSound.play()
                     if settings.triangleY == 36:
                         settings.triangleY = 56
                     elif settings.triangleY == 46:
@@ -99,6 +123,7 @@ class GameManager():
                         settings.triangleY = 46
 
                 if button == 'down':
+                    gameboy.clickSound.play()
                     if settings.triangleY == 36:
                         settings.triangleY = 46
                     elif settings.triangleY == 46:
@@ -107,10 +132,12 @@ class GameManager():
                         settings.triangleY = 36
 
                 if button == 'b':
+                    gameboy.clickSound.play()
                     self.state = 'menu'
                     gameboy.colorChoice = self.savedColor
 
                 if button == 'a':
+                    gameboy.clickSound.play()
                     if settings.triangleY == 36:
                         self.state = 'menu'
                         gameboy.colorChoice = 1
@@ -122,6 +149,12 @@ class GameManager():
                         gameboy.colorChoice = 3
 
                 self.lastButtonPressTime = currentTime
+
+    def startupSoundPlay(self):
+        currentTime = p5.millis()
+        if ((currentTime > 2000) and (self.played == False)):
+            gameboy.startupSound.play()
+            self.played = True
 
               
 
@@ -238,7 +271,24 @@ class Minecraft():
         p5.fill(99, 99, 5)
         p5.strokeWeight(0)
         p5.rect(-1, -1, 100, 91)
+        p5.image(gameboy.minecraftImage, 0,0,93,85)
         p5.image(self.video, 0, 0, 93, 85)
+
+#Tetris Scene Objects
+class Tetris():
+    def __init__(self):
+        self.tetrisVideo = p5.createVideo(['tetris.mp4'])
+        self.tetrisVideo.size(93, 85)
+        self.tetrisVideo.hide()
+        self.tetrisVideo.loop()
+        self.tetrisVideo.volume(0)
+
+    def draw(self):
+        p5.fill(99, 99, 5)
+        p5.strokeWeight(0)
+        p5.rect(-1, -1, 100, 91)
+        p5.image(gameboy.minecraftImage, 0, 0, 93, 85)
+        p5.image(self.tetrisVideo, 0, 0, 93, 85)
 
 #Controls & Actions
 class ControlsManager():
@@ -331,7 +381,8 @@ class Gameboy():
         self.font1 = p5.loadFont('PressStart2P.otf')
         self.clickSound = p5.loadSound('click.wav')
         self.startupSound = p5.loadSound('startup.wav')
-        self.startupSound.play()
+        self.minecraftImage = p5.loadImage('minecraftImage.png')
+
     def draw(self):
         #Use font1 for all texts
         p5.textFont(self.font1);
@@ -432,14 +483,17 @@ menu = Menu()
 start = Start()
 settings = Settings()
 minecraft = Minecraft()
+tetris = Tetris()
 
 def setup():
-    p5.createCanvas(300, 300)   
+    p5.createCanvas(300, 300)
 
 def draw():
     gameboy.draw()
     body.draw()
     controlsManager.keyChecker()
+    gameManager.startupSoundPlay()
+    
     
 
 def keyPressed(event):
