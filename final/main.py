@@ -72,7 +72,7 @@ class GameManager():
                     if menu.triangleY == 36:
                         self.savedChoice = gameboy.colorChoice
                         self.state = 'tetris'
-                        gameboy.colorChoice = 4
+                        gameboy.colorChoice = 3
                         elapsed = 0
                     elif menu.triangleY == 46:
                         self.savedChoice = gameboy.colorChoice
@@ -287,7 +287,7 @@ class Tetris():
         p5.fill(99, 99, 5)
         p5.strokeWeight(0)
         p5.rect(-1, -1, 100, 91)
-        p5.image(gameboy.minecraftImage, 0, 0, 93, 85)
+        p5.image(gameboy.tetrisImage, 0, 0, 93, 85)
         p5.image(self.tetrisVideo, 0, 0, 93, 85)
 
 #Controls & Actions
@@ -370,7 +370,9 @@ class Gameboy():
     def __init__(self):
         self.color1 = p5.loadImage('color1.png'); 
         self.color2 = p5.loadImage('color2.png');
+        self.color3 = p5.loadImage('color3.png')
         self.background2 = p5.loadImage('background2.png');
+        self.background3 = p5.loadImage('background3.png')
         self.buttons = p5.loadImage('buttons.png');  
         self.leftDot = p5.loadImage('leftDot.png');  
         self.axisJoystick = p5.loadImage('axisJoystick.png');  
@@ -382,6 +384,7 @@ class Gameboy():
         self.clickSound = p5.loadSound('click.wav')
         self.startupSound = p5.loadSound('startup.wav')
         self.minecraftImage = p5.loadImage('minecraftImage.png')
+        self.tetrisImage = p5.loadImage('tetrisImage.png')
 
     def draw(self):
         #Use font1 for all texts
@@ -395,8 +398,8 @@ class Gameboy():
             p5.image(self.background2, 0, 0)
             p5.image(self.color2, 72, 21) 
         if (self.colorChoice == 3):
-            p5.image(self.background2, 0, 0)
-            p5.image(self.color2, 72, 21)
+            p5.image(self.background3, 0, 0)
+            p5.image(self.color3, 72, 21)
         if (self.colorChoice == 4):
             p5.image(self.background2, 0, 0)
             p5.image(self.color2, 72, 21)
