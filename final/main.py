@@ -19,6 +19,8 @@ class GameManager():
             minecraft.draw()
         if (self.state == 'tetris'):
             tetris.draw()
+        if (self.state == 'pokemon'):
+            pokemon.draw()
 
     # Scene Actions
     def actionTriggered(self, button):
@@ -77,10 +79,13 @@ class GameManager():
                     elif menu.triangleY == 46:
                         self.savedChoice = gameboy.colorChoice
                         self.state = 'minecraft'
-                        gameboy.colorChoice = 4
+                        gameboy.colorChoice = 2
                         elapsed = 0
                     elif menu.triangleY == 56:
-                        None
+                        self.savedChoice = gameboy.colorChoice
+                        self.state = 'pokemon'
+                        gameboy.colorChoice = 4
+                        elapsed = 0
                     elif menu.triangleY == 70:
                         self.state = 'settings'
                         self.savedColor = gameboy.colorChoice
@@ -100,6 +105,17 @@ class GameManager():
 
         #Tetris Scene
         if (self.state == 'tetris'):
+            if elapsed >= 200:
+                if (button == 'b'):
+                    gameboy.clickSound.play()
+                    self.state = 'menu'
+                    gameboy.colorChoice = self.savedChoice
+                if (button == 'a'):
+                    None
+                self.lastButtonPressTime = currentTime
+
+        #Pokemon Scene
+        if (self.state == 'pokemon'):
             if elapsed >= 200:
                 if (button == 'b'):
                     gameboy.clickSound.play()
@@ -290,6 +306,22 @@ class Tetris():
         p5.image(gameboy.tetrisImage, 0, 0, 93, 85)
         p5.image(self.tetrisVideo, 0, 0, 93, 85)
 
+#Pokemon Scene Objects
+class Pokemon():
+    def __init__(self):
+        self.pokemonVideo = p5.createVideo(['pokemon.mp4'])
+        self.pokemonVideo.size(93, 85)
+        self.pokemonVideo.hide()
+        self.pokemonVideo.loop()
+        self.pokemonVideo.volume(0)
+
+    def draw(self):
+        p5.fill(99, 99, 5)
+        p5.strokeWeight(0)
+        p5.rect(-1, -1, 100, 91)
+        p5.image(gameboy.pokemonImage, 0, 0, 93, 85)
+        p5.image(self.pokemonVideo, 0, 0, 93, 85)
+
 #Controls & Actions
 class ControlsManager():
     def keyChecker(self):
@@ -371,8 +403,10 @@ class Gameboy():
         self.color1 = p5.loadImage('color1.png'); 
         self.color2 = p5.loadImage('color2.png');
         self.color3 = p5.loadImage('color3.png')
+        self.color4 = p5.loadImage('color4.png')
         self.background2 = p5.loadImage('background2.png');
         self.background3 = p5.loadImage('background3.png')
+        self.background4 = p5.loadImage('background4.png')
         self.buttons = p5.loadImage('buttons.png');  
         self.leftDot = p5.loadImage('leftDot.png');  
         self.axisJoystick = p5.loadImage('axisJoystick.png');  
@@ -385,6 +419,7 @@ class Gameboy():
         self.startupSound = p5.loadSound('startup.wav')
         self.minecraftImage = p5.loadImage('minecraftImage.png')
         self.tetrisImage = p5.loadImage('tetrisImage.png')
+        self.pokemonImage = p5.loadImage('pokemonImage.jpg')
 
     def draw(self):
         #Use font1 for all texts
@@ -401,8 +436,8 @@ class Gameboy():
             p5.image(self.background3, 0, 0)
             p5.image(self.color3, 72, 21)
         if (self.colorChoice == 4):
-            p5.image(self.background2, 0, 0)
-            p5.image(self.color2, 72, 21)
+            p5.image(self.background4, 0, 0)
+            p5.image(self.color4, 72, 21)
         if (self.colorChoice == 5):
             p5.image(self.background2, 0, 0)
             p5.image(self.color2, 72, 21)
@@ -487,6 +522,7 @@ start = Start()
 settings = Settings()
 minecraft = Minecraft()
 tetris = Tetris()
+pokemon = Pokemon()
 
 def setup():
     p5.createCanvas(300, 300)
