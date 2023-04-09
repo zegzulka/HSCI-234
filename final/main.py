@@ -169,7 +169,7 @@ class GameManager():
     def startupSoundPlay(self):
         currentTime = p5.millis()
         if ((currentTime > 2000) and (self.played == False)):
-            gameboy.startupSound.play()
+            #gameboy.startupSound.play()
             self.played = True
 
               
